@@ -1,10 +1,13 @@
 import './App.css';
 import React, { Component } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Router } from 'react-router-dom';
 import GamePage from '../GamePage/GamePage';
 import LoginPage from '../LoginPage/LoginPage';
 import SignupPage from '../SignupPage/SignupPage';
 import userService from '../../utils/userService';
+//import PuzzleCreatePage from "./Puzzle/PuzzleCreate";
+import Room from "../Room/Room";
+import ChatRoom from "../ChatRoom/ChatRoom";
 
 class App extends Component {
   constructor() {
@@ -46,6 +49,8 @@ class App extends Component {
               handleSignupOrLogin={this.handleSignupOrLogin}
             />
           }/>
+          <Route exact path="/room" component={Room} />
+          <Route exact path="/:roomId" component={ChatRoom} />
         </Switch>
       </div>
     );
