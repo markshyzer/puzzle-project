@@ -4,4 +4,6 @@
     height: 100px;
     cursor: move;
     background-size: contain;
+    font-size: xx-small;
+    color: white;
 }

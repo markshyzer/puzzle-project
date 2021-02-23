@@ -52,7 +52,7 @@ class Puzzle extends React.Component {
     };
 
     checkPlacement =(p) => {
-      const T = 10 //set tolerance in pixels
+      const T = 15 //set tolerance in pixels
       if (this.state.puzzlePiece[p].x < this.state.puzzlePiece[p].finalX + T && this.state.puzzlePiece[p].x > this.state.puzzlePiece[p].finalX - T) {
         if (this.state.puzzlePiece[p].y < this.state.puzzlePiece[p].finalY + T && this.state.puzzlePiece[p].y > this.state.puzzlePiece[p].finalY - T) {
           let newPuzzlePiece = this.state.puzzlePiece
@@ -60,6 +60,12 @@ class Puzzle extends React.Component {
           this.setState({ puzzlePiece: newPuzzlePiece })
         }
       }
+    }
+
+    movePiece =(p, x, y) => {
+      let newPuzzlePiece = this.state.puzzlePiece
+      newPuzzlePiece[p] = {...this.state.puzzlePiece[p], x: x, y: y}
+      this.setState({ puzzlePiece: newPuzzlePiece })
     }
 
     handleDrag = (e, ui) => {
@@ -88,6 +94,7 @@ class Puzzle extends React.Component {
           handleDrag={this.handleDrag}
           onStop={this.onStop}
           onStart={this.onStart}
+          movePiece={this.movePiece}
           puzzlePiece={p} />
           )}
         </div>
