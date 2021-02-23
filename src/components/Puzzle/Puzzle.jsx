@@ -1,6 +1,7 @@
 import React from 'react';
-import './Puzzle.css';
+// import './Puzzle.css';
 import Draggable from 'react-draggable';
+import Piece from '../Piece/Piece'
 
 class Puzzle extends React.Component {
     constructor() {
@@ -20,21 +21,21 @@ class Puzzle extends React.Component {
         this.setState({activeDrags: ++this.state.activeDrags});
       };
     
-      onStop = (e, ui) => {
-        this.setState({activeDrags: --this.state.activeDrags});
-        this.checkPlacement(ui.node.id)
-      };
+    onStop = (e, ui) => {
+      this.setState({activeDrags: --this.state.activeDrags});
+      this.checkPlacement(ui.node.id)
+    };
 
-      checkPlacement =(p) => {
-        const T = 10 //set tolerance in pixels
-        if (this.state.puzzlePiece[p].x < this.state.puzzlePiece[p].finalX + T && this.state.puzzlePiece[p].x > this.state.puzzlePiece[p].finalX - T) {
-          if (this.state.puzzlePiece[p].y < this.state.puzzlePiece[p].finalY + T && this.state.puzzlePiece[p].y > this.state.puzzlePiece[p].finalY - T) {
-            let newPuzzlePiece = this.state.puzzlePiece
-            newPuzzlePiece[p] = {...this.state.puzzlePiece[p], x: this.state.puzzlePiece[p].finalX, y: this.state.puzzlePiece[p].finalY, drag: false}
-            this.setState({ puzzlePiece: newPuzzlePiece })
-          }
+    checkPlacement =(p) => {
+      const T = 10 //set tolerance in pixels
+      if (this.state.puzzlePiece[p].x < this.state.puzzlePiece[p].finalX + T && this.state.puzzlePiece[p].x > this.state.puzzlePiece[p].finalX - T) {
+        if (this.state.puzzlePiece[p].y < this.state.puzzlePiece[p].finalY + T && this.state.puzzlePiece[p].y > this.state.puzzlePiece[p].finalY - T) {
+          let newPuzzlePiece = this.state.puzzlePiece
+          newPuzzlePiece[p] = {...this.state.puzzlePiece[p], x: this.state.puzzlePiece[p].finalX, y: this.state.puzzlePiece[p].finalY, drag: false}
+          this.setState({ puzzlePiece: newPuzzlePiece })
         }
       }
+    }
 
     handleDrag = (e, ui) => {
         const i = ui.node.id
@@ -43,7 +44,7 @@ class Puzzle extends React.Component {
         x: ui.x,
         y: ui.y}
         this.setState({
-            puzzlePiece : newPuzzlePiece
+          puzzlePiece : newPuzzlePiece
     });
   };
 
@@ -53,9 +54,17 @@ class Puzzle extends React.Component {
         <div>
           <Draggable onStart={() => false}>
               <div className="board"
-              style={{position: 'absolute', top: board.x, left: board.y, backgroundColor: 'red', width: board.size, height: board.size}}>Puzzle Board</div>
+              style={{position: 'absolute', top: board.x, left: board.y, border: "1px dotted black", width: board.size, height: board.size}}>Puzzle Board</div>
           </Draggable >
-          <PuzzlePiece />
+          {this.state.puzzlePiece.map((p, i) => 
+          <Piece 
+          key={i}
+          id={i}
+          handleDrag={this.handleDrag}
+          onStop={this.onStop}
+          onStart={this.onStart}
+          puzzlePiece={p} />
+          )}
         </div>
         
       )
