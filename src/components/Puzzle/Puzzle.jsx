@@ -9,10 +9,35 @@ class Puzzle extends React.Component {
         this.state = {
             activeDrags: 0,
             puzzlePiece: [
-                {x: 0, y: 0, drag: true, finalX: 100, finalY: 200}, 
-                {x: 0, y: 0, drag: true, finalX: 200, finalY: 200},
-                {x: 0, y: 0, drag: true, finalX: 100, finalY: 300},
-                {x: 0, y: 0, drag: true, finalX: 200, finalY: 300},
+                {x: 0, y: 0, drag: true, finalX: 350, finalY: 100}, 
+                {x: 0, y: 0, drag: true, finalX: 450, finalY: 100},
+                {x: 0, y: 0, drag: true, finalX: 550, finalY: 100},
+                {x: 0, y: 0, drag: true, finalX: 650, finalY: 100},
+                {x: 0, y: 0, drag: true, finalX: 750, finalY: 100},
+
+                {x: 0, y: 0, drag: true, finalX: 350, finalY: 200},
+                {x: 0, y: 0, drag: true, finalX: 450, finalY: 200},
+                {x: 0, y: 0, drag: true, finalX: 550, finalY: 200},
+                {x: 0, y: 0, drag: true, finalX: 650, finalY: 200},
+                {x: 0, y: 0, drag: true, finalX: 750, finalY: 200},
+
+                {x: 0, y: 0, drag: true, finalX: 350, finalY: 300},
+                {x: 0, y: 0, drag: true, finalX: 450, finalY: 300},
+                {x: 0, y: 0, drag: true, finalX: 550, finalY: 300},
+                {x: 0, y: 0, drag: true, finalX: 650, finalY: 300},
+                {x: 0, y: 0, drag: true, finalX: 750, finalY: 300},
+
+                {x: 0, y: 0, drag: true, finalX: 350, finalY: 400},
+                {x: 0, y: 0, drag: true, finalX: 450, finalY: 400},
+                {x: 0, y: 0, drag: true, finalX: 550, finalY: 400},
+                {x: 0, y: 0, drag: true, finalX: 650, finalY: 400},
+                {x: 0, y: 0, drag: true, finalX: 750, finalY: 400},
+
+                {x: 0, y: 0, drag: true, finalX: 350, finalY: 500},
+                {x: 0, y: 0, drag: true, finalX: 450, finalY: 500},
+                {x: 0, y: 0, drag: true, finalX: 550, finalY: 500},
+                {x: 0, y: 0, drag: true, finalX: 650, finalY: 500},
+                {x: 0, y: 0, drag: true, finalX: 750, finalY: 500},
             ],
         };
     }
@@ -49,12 +74,12 @@ class Puzzle extends React.Component {
   };
 
   render(){
-      const board = {x: "200px", y: "100px", size: "200px"};
+      const board = {x: "350px", y: "100px", size: "500px"};
       return(
         <div>
           <Draggable onStart={() => false}>
               <div className="board"
-              style={{position: 'absolute', top: board.x, left: board.y, border: "1px dotted black", width: board.size, height: board.size}}>Puzzle Board</div>
+              style={{position: 'absolute', top: board.y, left: board.x, border: "1px dotted black", width: board.size, height: board.size}}>Puzzle Board</div>
           </Draggable >
           {this.state.puzzlePiece.map((p, i) => 
           <Piece 
