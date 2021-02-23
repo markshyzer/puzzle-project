@@ -3,5 +3,8 @@
 }
 
 .header-footer {
-  font-size: 30px;
+  min-height: 60px;
+  font-size: 40px;
+  background-color: black;
+  color: white;
 }

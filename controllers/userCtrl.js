@@ -1,4 +1,3 @@
-const userModel = require('../models/userModel');
 const User = require('../models/userModel');
 const jwt = require('jsonwebtoken');
 const SECRET = process.env.SECRET;
@@ -32,6 +31,18 @@ async function login(req, res) {
   }
 }
 
+async function update(req, res) {
+  const user = await User.findOne({_id: req.params.id})
+  console.log('user: ' + user)
+  user.name = req.body.name
+  try {
+    await user.save()
+  } catch (err) {
+    console.log(err)
+  }
+  return res.json(user)
+}
+
 /*----- Helper Functions -----*/
 function createJWT(user) {
   return jwt.sign(
@@ -43,5 +54,6 @@ function createJWT(user) {
 
 module.exports = {
   signup,
-  login
+  login,
+  update
 };

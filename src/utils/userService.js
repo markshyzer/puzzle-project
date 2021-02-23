@@ -41,9 +41,23 @@ function login(creds) {
   .then(({token}) => tokenService.setToken(token));
 }
 
+function update(user) {
+  return fetch(`${BASE_URL}/updatename/${user.id}`, {
+    method: 'PUT',
+    headers: new Headers({'Content-Type': 'application/json'}),
+    body: JSON.stringify(user)
+  })
+  .then(res => {
+    if (res.ok) return res.json();
+    // Probably a duplicate email
+    throw new Error('Error');
+  })
+}
+
 export default {
   signup, 
   getUser,
   logout,
-  login
+  login,
+  update
 };
