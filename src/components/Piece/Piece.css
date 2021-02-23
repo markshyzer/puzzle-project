@@ -1,0 +1,9 @@
+.puzzle-piece {
+    background: #ccc;
+    width: 100px;
+    height: 100px;
+    cursor: move;
+    background-size: contain;
+    font-size: xx-small;
+    color: white;
+}
