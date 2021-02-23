@@ -18,6 +18,7 @@ class UpdatePage extends Component {
     e.preventDefault();
     try {
       await userService.update(this.state);
+      this.props.handleUpdateName();
       this.props.history.push('/');
     } catch (err) {
       alert('Invalid Credentials!');

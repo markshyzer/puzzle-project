@@ -5,7 +5,6 @@ import LandingPage from '../LandingPage/LandingPage';
 import NavBar from '../../components/NavBar/NavBar'
 import ImagesPage from '../ImagesPage/ImagesPage'
 import ImagePage from '../ImagePage/ImagePage'
-import Image from '../../components/Image/Image'
 import LoginPage from '../LoginPage/LoginPage';
 import SignupPage from '../SignupPage/SignupPage';
 import UpdatePage from '../UpdatePage/UpdatePage'
@@ -20,11 +19,10 @@ class App extends Component {
     }
   }
 
-  // handleUpdateName = () => {
-  //   this.setState({
-  //     user: 
-  //   })
-  // }
+  handleUpdateName = async () => {
+    const user = await userService.index(this.state.user._id);
+    this.setState({ user });
+  }
 
   handleSignupOrLogin = () => {
     this.setState({user: userService.getUser()});
@@ -67,7 +65,7 @@ class App extends Component {
           <Route exact path='/updatename/:id' render={({ history }) => 
             <UpdatePage
               history={history}
-              handleSignupOrLogin={this.handleUpdateName}
+              handleUpdateName={this.handleUpdateName}
               user={this.state.user}
             />
           }/>

@@ -33,7 +33,6 @@ async function login(req, res) {
 
 async function update(req, res) {
   const user = await User.findOne({_id: req.params.id})
-  console.log('user: ' + user)
   user.name = req.body.name
   try {
     await user.save()
@@ -52,8 +51,20 @@ function createJWT(user) {
   );
 }
 
+// Testing Update   
+
+async function getUser(req,res) {
+  const user = await User.findOne({_id: req.params.id})
+  try {
+    return res.json(user)
+  } catch (err) {
+    console.log(err)
+  }
+}
+
 module.exports = {
   signup,
   login,
-  update
+  update,
+  getUser
 };

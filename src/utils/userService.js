@@ -54,10 +54,22 @@ function update(user) {
   })
 }
 
+// Testing update
+function index(id) {
+  const options = {
+    method: 'GET',
+    headers: {
+      'Authorization': 'Bearer ' + tokenService.getToken()
+    }
+  };
+  return fetch(`${BASE_URL}/${id}`, options).then(res => res.json());
+}
+
 export default {
   signup, 
   getUser,
   logout,
   login,
-  update
+  update,
+  index
 };

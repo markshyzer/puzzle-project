@@ -2,7 +2,6 @@ import React from 'react'
 import { Link } from 'react-router-dom';
 
 export default function UserPage(props) {
-    console.log(props)
     return (
         <div>
             <h1>Highest score:  </h1>
