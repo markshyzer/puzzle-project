@@ -5,3 +5,7 @@
   align-items: center;
   margin-bottom: 50px;
 }
+
+.login-msg {
+  font-size: 17px;
+}

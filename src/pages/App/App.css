@@ -3,5 +3,13 @@
 }
 
 .header-footer {
-  font-size: 30px;
+  min-height: 60px;
+  font-size: 40px;
+  background-color: black;
+  color: white;
+}
+@media(max-width: 600px){
+  .header-footer > span {
+    font-size: 30px;
+  }
 }
