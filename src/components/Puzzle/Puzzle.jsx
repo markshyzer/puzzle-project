@@ -58,7 +58,6 @@ class Puzzle extends React.Component {
           //we need to request to recieve state from other user( since this is new player)
           await socket.emit("newPlayer")
           await socket.on("fullPuzzleRecieve", (data) => {
-            
             this.setState({puzzlePiece: data.pieces})
         })
       }
