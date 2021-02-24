@@ -1,26 +1,15 @@
 import './App.css';
 import React, { Component } from 'react';
-<<<<<<< HEAD
 import { Route, Switch } from 'react-router-dom';
 import LandingPage from '../LandingPage/LandingPage';
 import NavBar from '../../components/NavBar/NavBar'
 import ImagesPage from '../ImagesPage/ImagesPage'
 import ImagePage from '../ImagePage/ImagePage'
-=======
-import { Route, Switch, Router } from 'react-router-dom';
-import GamePage from '../GamePage/GamePage';
->>>>>>> mike-branch1
 import LoginPage from '../LoginPage/LoginPage';
 import SignupPage from '../SignupPage/SignupPage';
 import UpdatePage from '../UpdatePage/UpdatePage'
 import userService from '../../utils/userService';
-<<<<<<< HEAD
 import tokenService from '../../utils/tokenService';
-=======
-//import PuzzleCreatePage from "./Puzzle/PuzzleCreate";
-import Room from "../Room/Room";
-import ChatRoom from "../ChatRoom/ChatRoom";
->>>>>>> mike-branch1
 
 class App extends Component {
   constructor() {
@@ -73,7 +62,6 @@ class App extends Component {
               user={this.state.user}
             />
           }/>
-<<<<<<< HEAD
           <Route exact path='/updatename/:id' render={({ history }) => 
             <UpdatePage
               history={history}
@@ -87,10 +75,6 @@ class App extends Component {
           <Route exact path='/images/:id' render={props => 
             <ImagePage {...props}/>}
           />
-=======
-          <Route exact path="/room" component={Room} />
-          <Route exact path="/:roomId" component={ChatRoom} />
->>>>>>> mike-branch1
         </Switch>
       </div>
     );
