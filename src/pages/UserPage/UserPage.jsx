@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 export default function UserPage(props) {
     return (
         <div>
-            <h1>Highest score:  </h1>
-            <Link to='/images'>Start a new game</Link>
+            <h3>Highest score:  </h3> <br/><br/>
+            <Link style={{fontSize: 35}} to='/images'>Start a new game</Link>
             <hr></hr>
             <h1>Join a game</h1>
 

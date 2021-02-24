@@ -9,6 +9,7 @@
     "bcrypt": "^5.0.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "gsap": "^3.6.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.11.17",
     "morgan": "^1.10.0",
@@ -16,6 +17,8 @@
     "react-dom": "^17.0.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.2",
+    "react-transition-group": "^4.4.1",
+    "sass": "^1.32.8",
     "serve-favicon": "^2.5.0",
     "web-vitals": "^1.1.0"
   },

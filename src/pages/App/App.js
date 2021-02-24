@@ -36,7 +36,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <header className='header-footer'>P U Z Z L E S &nbsp;&nbsp;&nbsp;  P R O J E C T</header>
+        <header className='header-footer'>R e A L - T i m E &nbsp;&nbsp;&nbsp;  P u Z Z L e S</header>
         <NavBar 
           user={this.state.user}
           handleLogout={this.handleLogout}

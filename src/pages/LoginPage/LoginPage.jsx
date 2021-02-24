@@ -30,6 +30,7 @@ class LoginPage extends Component {
   render() {
     return (
       <div className="LoginPage">
+        <img style={{height: 110, marginBottom: 20}} src='http://cdn.onlinewebfonts.com/svg/img_326299.png' alt='login' />
         <form className="form-horizontal" onSubmit={this.handleSubmit} >
           <div className="form-group">
             <div className="col-sm-12">

@@ -39,6 +39,7 @@ class SignupForm extends Component {
   render() {
     return (
       <div>
+        <img style={{height: 110, marginBottom: 20}} src='http://cdn.onlinewebfonts.com/svg/download_347537.png' alt='signup' />
         <form className="form-horizontal" onSubmit={this.handleSubmit} >
           <div className="form-group">
             <div className="col-sm-12">
