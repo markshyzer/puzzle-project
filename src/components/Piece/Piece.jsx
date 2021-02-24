@@ -2,21 +2,26 @@ import React from 'react';
 import './Piece.css';
 import Draggable from 'react-draggable';
 
+//socket.io
+import socketIOClient from "socket.io-client";
+const SOCKET_SERVER_URL = "http://localhost:4000";
+var socket = socketIOClient(SOCKET_SERVER_URL);
 
 class Piece extends React.Component{
-componentDidMount(){
-  this.scatter(this.props.id)
-}
+// componentDidMount(){
+//   this.scatter(this.props.id)
+// }
 
-scatter = (p) => {
-  let randX = Math.floor(Math.random() * 1000); 
-  let randY = Math.floor(Math.random() * 450) + 75;
-  this.props.movePiece(p, randX, randY)
-}
+// scatter = (p) => {
+//   let randX = Math.floor(Math.random() * 1000); 
+//   let randY = Math.floor(Math.random() * 450) + 75;
+//   this.props.movePiece(p, randX, randY);
+
+// }
 
     render(){
         return(
-            <Draggable position={this.props.puzzlePiece} onDrag={this.props.handleDrag} onStop={this.props.onStop} onStart={() => this.props.puzzlePiece.drag}>
+            <Draggable grid={[10,10]} position={this.props.puzzlePiece} onDrag={this.props.handleDrag} onStop={this.props.onStop} onStart={() => this.props.puzzlePiece.drag}>
             <div className="puzzle-piece" id={this.props.id} 
             style={{position: 'absolute', top: 0, left: 0, backgroundImage: "url(/images/puzzle1/"+ this.props.id +".jpg)" }}>
               <div>Piece {this.props.id}</div>

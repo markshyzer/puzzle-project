@@ -5,7 +5,7 @@ import socketIOClient from "socket.io-client";
 const NEW_CHAT_MESSAGE_EVENT = "newChatMessage"; // Name of the event
 const SOCKET_SERVER_URL = "http://localhost:4000";
 
-const useChat = (roomId) => {
+const useSocket = (roomId) => {
   const [messages, setMessages] = useState([]); // Sent and received messages
   const socketRef = useRef();
 
@@ -24,6 +24,14 @@ const useChat = (roomId) => {
       };
       setMessages((messages) => [...messages, incomingMessage]);
     });
+
+    // socketRef.current.on("update", (piece) => {
+    //   const draggedPiece = {
+    //     ...message,
+    //     ownedByCurrentUser: message.senderId === socketRef.current.id,
+    //   };
+    //   setMessages((messages) => [...messages, incomingMessage]);
+    // });
     
     // Destroys the socket reference
     // when the connection is closed
@@ -44,4 +52,4 @@ const useChat = (roomId) => {
   return { messages, sendMessage };
 };
 
-export default useChat;
+export default useSocket;

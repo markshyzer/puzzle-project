@@ -39,19 +39,48 @@ const io = require("socket.io")(server, {
   },
 });
 
-const PORT = 4000;
 const NEW_CHAT_MESSAGE_EVENT = "newChatMessage";
-
+const PORT = 4000;
 io.on("connection", (socket) => {
-  
+
   // Join a conversation
   const { roomId } = socket.handshake.query;
-  socket.join(roomId);
-
+  socket.join(roomId);//creates a room if it doesnt exist or you join a previously created room
+  
   // Listen for new messages
   socket.on(NEW_CHAT_MESSAGE_EVENT, (data) => {
     io.in(roomId).emit(NEW_CHAT_MESSAGE_EVENT, data);
   });
+  
+  //Listen for Init
+  socket.on("init", (data)=>{
+    //pass down puzzle pieces data
+    let playerCount = socket.adapter.rooms.get(data.roomId.roomId);
+    let check = (playerCount.size > 1);
+    //puzzle already created.
+    io.in(roomId).emit("init", check);
+});
+
+  socket.on("newPlayer", (data)=>{
+    socket.broadcast.emit("newPlayerFound")
+  })
+
+  socket.on("fullPuzzle", (data) => {
+    io.in(roomId).emit("fullPuzzleRecieve", data)
+  })
+  
+  socket.on("pushState", (data) => {
+    io.in(roomId).emit("callState",data);
+    // //pass data from server side - > client side(to sync state)
+    // //this has to be the newest state data.
+  });
+  //Listen for Update(drag)
+//   socket.on("update", (data)=>{
+//     ///pass down puzzle pieces(moving)
+//     io.in(roomId).emit("update", data);
+// });
+
+//update every 0.1s no matter what(no event)
 
   // Leave the room if the user closes the socket
   socket.on("disconnect", () => {

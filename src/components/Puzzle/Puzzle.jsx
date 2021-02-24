@@ -2,11 +2,13 @@ import React from 'react';
 // import './Puzzle.css';
 import Draggable from 'react-draggable';
 import Piece from '../Piece/Piece'
-
+import socketIOClient from "socket.io-client";
+var socket;
 class Puzzle extends React.Component {
     constructor() {
         super();
         this.state = {
+            endpoint: 'http://localhost:4000/',
             activeDrags: 0,
             puzzlePiece: [
                 {x: 0, y: 0, drag: true, finalX: 350, finalY: 100}, 
@@ -40,6 +42,48 @@ class Puzzle extends React.Component {
                 {x: 0, y: 0, drag: true, finalX: 750, finalY: 500},
             ],
         };
+        socket = socketIOClient(this.state.endpoint);
+    }
+    async componentDidMount(){
+      //when mounted, push state to server.
+      await socket.emit("init",{roomId:this.props.roomId});
+      socket.once("init" , async (check) =>{
+        if(!check){
+          this.scatter(this.state.puzzlePiece);
+          this.state.puzzlePiece.forEach((p,i) => {
+            socket.emit("pushState", {piece:p, index:i})
+          })
+        }
+        else{
+          //we need to request to recieve state from other user( since this is new player)
+          await socket.emit("newPlayer")
+          await socket.on("fullPuzzleRecieve", (data) => {
+            
+            this.setState({puzzlePiece: data.pieces})
+        })
+      }
+    })
+
+      socket.on("newPlayerFound", async (data) => {
+        await socket.emit("fullPuzzle", {
+          pieces:this.state.puzzlePiece
+        })
+      })
+      socket.on("callState", (data) =>{
+        let newPuzzlePiece = [...this.state.puzzlePiece];
+        newPuzzlePiece[data.index] = data.piece;
+        this.setState({
+          puzzlePiece: newPuzzlePiece
+        })
+      })
+    }
+
+    scatter = (pieces) => {
+      pieces.forEach((p,pIndex) => {
+        let randX = Math.floor(Math.random() * 1000); 
+        let randY = Math.floor(Math.random() * 450) + 75;
+        this.movePiece(pIndex, randX, randY);
+      })
     }
 
     onStart = () => {
@@ -58,6 +102,7 @@ class Puzzle extends React.Component {
           let newPuzzlePiece = this.state.puzzlePiece
           newPuzzlePiece[p] = {...this.state.puzzlePiece[p], x: this.state.puzzlePiece[p].finalX, y: this.state.puzzlePiece[p].finalY, drag: false}
           this.setState({ puzzlePiece: newPuzzlePiece })
+          socket.emit("pushState", {piece:newPuzzlePiece[p], index:p})
         }
       }
     }
@@ -74,6 +119,13 @@ class Puzzle extends React.Component {
         newPuzzlePiece[i] = {...this.state.puzzlePiece[i],
         x: ui.x,
         y: ui.y}
+        socket.emit("pushState", {piece:newPuzzlePiece[i], index:i})
+        // socket.emit("update",{
+        //   piece:newPuzzlePiece[i],
+        //   index:i
+        // });
+
+
         this.setState({
           puzzlePiece : newPuzzlePiece
     });

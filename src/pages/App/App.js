@@ -9,7 +9,14 @@ import LoginPage from '../LoginPage/LoginPage';
 import SignupPage from '../SignupPage/SignupPage';
 import UpdatePage from '../UpdatePage/UpdatePage'
 import userService from '../../utils/userService';
+
+//import PuzzleCreatePage from "./Puzzle/PuzzleCreate";
+import Room from "../Room/Room";
+import GameRoom from "../GameRoom/GameRoom";
+
+//draggable
 import tokenService from '../../utils/tokenService';
+
 
 class App extends Component {
   constructor() {
@@ -62,6 +69,9 @@ class App extends Component {
               user={this.state.user}
             />
           }/>
+
+          <Route exact path="/room" component={Room} />
+          <Route exact path="/:roomId" component={GameRoom} />
           <Route exact path='/updatename/:id' render={({ history }) => 
             <UpdatePage
               history={history}
