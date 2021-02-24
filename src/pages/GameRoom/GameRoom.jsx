@@ -1,12 +1,13 @@
 
 import React, { Component } from 'react';
 
-import "./ChatRoom.css";
-import useChat from "../../useChat";
+import "./GameRoom.css";
+import useSocket from "../../useSocket";
+import Puzzle from '../../components/Puzzle/Puzzle'
 
-const ChatRoom = (props) => {
+const GameRoom = (props) => {
   const { roomId } = props.match.params; // Gets roomId from URL
-  const { messages, sendMessage } = useChat(roomId); // Creates a websocket and manages messaging
+  const { messages, sendMessage } = useSocket(roomId); // Creates a websocket and manages messaging
   const [newMessage, setNewMessage] = React.useState(""); // Message to be sent
 
   const handleNewMessageChange = (event) => {
@@ -20,6 +21,9 @@ const ChatRoom = (props) => {
 
   return (
     <div className="chat-room-container">
+      <Puzzle 
+        roomId={props.match.params}
+      />
       <h1 className="room-name">Room: {roomId}</h1>
       <div className="messages-container">
         <ol className="messages-list">
@@ -48,4 +52,4 @@ const ChatRoom = (props) => {
   );
 };
 
-export default ChatRoom;
+export default GameRoom;

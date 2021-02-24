@@ -7,7 +7,7 @@ import SignupPage from '../SignupPage/SignupPage';
 import userService from '../../utils/userService';
 //import PuzzleCreatePage from "./Puzzle/PuzzleCreate";
 import Room from "../Room/Room";
-import ChatRoom from "../ChatRoom/ChatRoom";
+import GameRoom from "../GameRoom/GameRoom";
 
 //draggable
 
@@ -53,7 +53,7 @@ class App extends Component {
             />
           }/>
           <Route exact path="/room" component={Room} />
-          <Route exact path="/:roomId" component={ChatRoom} />
+          <Route exact path="/:roomId" component={GameRoom} />
         </Switch>
       </div>
     );
