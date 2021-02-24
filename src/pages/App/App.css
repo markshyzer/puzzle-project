@@ -8,3 +8,8 @@
   background-color: black;
   color: white;
 }
+@media(max-width: 600px){
+  .header-footer > span {
+    font-size: 30px;
+  }
+}
