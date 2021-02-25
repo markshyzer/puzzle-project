@@ -19,6 +19,8 @@ const GameRoom = (props) => {
     setNewMessage("");
   };
 
+  
+
   // Auto Scroll to chatbox bottom
   const messageEl = useRef(null);
   useEffect(() => {

@@ -4,13 +4,14 @@ import Draggable from 'react-draggable';
 import Piece from '../Piece/Piece'
 import socketIOClient from "socket.io-client";
 
+require('dotenv').config();
 
 var socket;
 class Puzzle extends React.Component {
     constructor() {
         super();
         this.state = {
-            endpoint: 'http://localhost:4000/',
+            endpoint: process.env.REACT_APP_ENDPOINT,
             activeDrags: 0,
             puzzlePiece: [
                 {x: 0, y: 0, drag: true, finalX: 350, finalY: 100}, 
@@ -46,7 +47,9 @@ class Puzzle extends React.Component {
         };
       }
     async componentDidMount(){
+
       //when mounted, push state to server.
+      console.log("ENV",this.state.endpoint);
       socket = socketIOClient(this.state.endpoint, {query: this.props.roomId});
       await socket.emit("init",{roomId:this.props.roomId});
       socket.once("init" , async (check) =>{
@@ -82,7 +85,15 @@ class Puzzle extends React.Component {
         })
       })
     }
-
+    // componentWillUnmount() {
+    //   socket.emit("disconnect");
+    // }
+    checkWin = () => {
+      let win = !(this.state.puzzlePiece.some(p => p.drag === "true"))
+      if(win){
+        alert("You won!");
+      }
+    }
     scatter = (pieces) => {
       pieces.forEach((p,pIndex) => {
         let randX = Math.floor(Math.random() * 1000); 
@@ -109,6 +120,7 @@ class Puzzle extends React.Component {
           newPuzzlePiece[p] = {...this.state.puzzlePiece[p], x: this.state.puzzlePiece[p].finalX, y: this.state.puzzlePiece[p].finalY, drag: false}
           this.setState({ puzzlePiece: newPuzzlePiece })
           socket.emit("pushState", {piece:newPuzzlePiece[p], index:p})
+          this.checkWin()
         }
       }
     }
@@ -136,6 +148,7 @@ class Puzzle extends React.Component {
         this.setState({
           puzzlePiece : newPuzzlePiece
     });
+    
   };
 
   render(){
