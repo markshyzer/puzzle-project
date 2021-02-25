@@ -44,28 +44,32 @@ class Puzzle extends React.Component {
                 {x: 0, y: 0, drag: true, finalX: 750, finalY: 500},
             ],
         };
-        socket = socketIOClient(this.state.endpoint);
-    }
+      }
     async componentDidMount(){
       //when mounted, push state to server.
+      socket = socketIOClient(this.state.endpoint, {query: this.props.roomId});
       await socket.emit("init",{roomId:this.props.roomId});
       socket.once("init" , async (check) =>{
-        if(!check){
+        //if(!check){
+          //first player joining the room/ you scatter the pieces of puzzle
           this.scatter(this.state.puzzlePiece);
-          this.state.puzzlePiece.forEach((p,i) => {
-            socket.emit("pushState", {piece:p, index:i})
+          this.state.puzzlePiece.forEach( async (p,i) => {
+            //map through the whole pieces to scatter them
+            await socket.emit("pushState", {piece:p, index:i})
+            //25 piece emit
           })
-        }
-        else{
+        //}
+        //else{
           //we need to request to recieve state from other user( since this is new player)
-          await socket.emit("newPlayer")
+          await socket.emit("newPlayer")//1 anounce new player arrived(not create)
           await socket.on("fullPuzzleRecieve", (data) => {
             this.setState({puzzlePiece: data.pieces})
+            //3
         })
-      }
+      //}
     })
-
-      socket.on("newPlayerFound", async (data) => {
+      //2
+      await socket.on("newPlayerFound", async (data) => {
         await socket.emit("fullPuzzle", {
           pieces:this.state.puzzlePiece
         })
