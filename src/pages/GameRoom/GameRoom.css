@@ -68,4 +68,6 @@
   background: #31a24beb;
   padding: 0 12px;
   border: none;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
 }
