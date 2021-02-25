@@ -46,7 +46,6 @@ io.on("connection", (socket) => {
   // Join a conversation
   const { roomId } = socket.handshake.query;
   socket.join(roomId);//creates a room if it doesnt exist or you join a previously created room
-  
   // Listen for new messages
   socket.on(NEW_CHAT_MESSAGE_EVENT, (data) => {
     io.in(roomId).emit(NEW_CHAT_MESSAGE_EVENT, data);
@@ -55,22 +54,34 @@ io.on("connection", (socket) => {
   //Listen for Init
   socket.on("init", (data)=>{
     //pass down puzzle pieces data
-    let playerCount = socket.adapter.rooms.get(data.roomId.roomId);
-    let check = (playerCount.size > 1);
+    //console.log(io.sockets.adapter.rooms.get(roomId).size)
+    let playerCount = socket.adapter.rooms.get(roomId);
+    //possible issue -> quick solution
+    //console.log(data.roomId.roomId);
+    let check = false // meaining scatter
+    if(playerCount){//error somewhere if playerCount is not valid, skip this
+      check = (playerCount.size > 1);//true is when you dont need  to scatter
+    }
+    console.log(check);
+    console.log("init",roomId);
     //puzzle already created.
     io.in(roomId).emit("init", check);
 });
 
   socket.on("newPlayer", (data)=>{
-    socket.broadcast.emit("newPlayerFound")
+    //socket.broadcast.emit("newPlayerFound")
+    console.log("new player", roomId);
+    socket.to(roomId).emit("newPlayerFound")
+    //sends out signal except myself
   })
 
   socket.on("fullPuzzle", (data) => {
+    console.log("full puzzle", roomId);
     io.in(roomId).emit("fullPuzzleRecieve", data)
   })
   
   socket.on("pushState", (data) => {
-    io.in(roomId).emit("callState",data);
+    socket.to(roomId).emit("callState",data);
     // //pass data from server side - > client side(to sync state)
     // //this has to be the newest state data.
   });
