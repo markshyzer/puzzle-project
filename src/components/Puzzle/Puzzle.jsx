@@ -3,6 +3,9 @@ import React from 'react';
 import Draggable from 'react-draggable';
 import Piece from '../Piece/Piece'
 import socketIOClient from "socket.io-client";
+import UIfx from 'uifx'
+import click from '/images/puzzle1/'
+
 var socket;
 class Puzzle extends React.Component {
     constructor() {
@@ -92,6 +95,7 @@ class Puzzle extends React.Component {
     onStop = (e, ui) => {
       this.setState({activeDrags: --this.state.activeDrags});
       this.checkPlacement(ui.node.id)
+      // clearInterval(update)
     };
 
     checkPlacement =(p) => {
@@ -119,6 +123,7 @@ class Puzzle extends React.Component {
         x: ui.x,
         y: ui.y}
         socket.emit("pushState", {piece:newPuzzlePiece[i], index:i})
+        
         // socket.emit("update",{
         //   piece:newPuzzlePiece[i],
         //   index:i

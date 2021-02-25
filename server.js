@@ -70,7 +70,7 @@ io.on("connection", (socket) => {
   })
   
   socket.on("pushState", (data) => {
-    io.in(roomId).emit("callState",data);
+    io.to(roomId).emit("callState",data); // using 'to' instead of 'in' emits to everyone but the sender
     // //pass data from server side - > client side(to sync state)
     // //this has to be the newest state data.
   });
