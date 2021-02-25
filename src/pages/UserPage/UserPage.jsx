@@ -36,11 +36,14 @@ export default function UserPage(props) {
             <hr></hr>
             <div ref={el => content2 = el}>
                 <h1>Join a game</h1>
-                <ul>
-                    {roomsList.map((room)=>
-                        <a href={room}><li>{room}</li></a>
-                    )}
-                </ul>
+                <div className="room-list-contain">
+                    <ul>
+                        {roomsList.map((room)=>
+                            <a href={room}><li style={{fontSize: 30, position: 'relative', right: 14}}>{room}</li></a>
+                        )}
+                    </ul>
+                </div>
+
             </div>
 
         </div>
