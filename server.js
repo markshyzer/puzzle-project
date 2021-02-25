@@ -41,7 +41,7 @@ const io = require("socket.io")(server, {
 });
 
 const NEW_CHAT_MESSAGE_EVENT = "newChatMessage";
-const PORT = 4000;
+const PORT = process.env.PORT || 4000;
 let roomList = []
 io.on("connection", (socket) => {
 
