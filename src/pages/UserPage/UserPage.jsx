@@ -22,7 +22,7 @@ export default function UserPage(props) {
     return (
         <div className="UserPage">
             <div ref={el => content1 = el}>
-                <Link style={{fontSize: 35}} to='/images'>Start a new game</Link>
+                <Link style={{fontSize: 35}} to='/Room'>Start a new game</Link>
             </div>
             <hr></hr>
             <div ref={el => content2 = el}>
