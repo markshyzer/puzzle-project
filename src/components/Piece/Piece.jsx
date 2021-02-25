@@ -3,9 +3,9 @@ import './Piece.css';
 import Draggable from 'react-draggable';
 
 //socket.io
-import socketIOClient from "socket.io-client";
-const SOCKET_SERVER_URL = "http://localhost:4000";
-var socket = socketIOClient(SOCKET_SERVER_URL);
+// import socketIOClient from "socket.io-client";
+// const SOCKET_SERVER_URL = "http://localhost:4000";
+// var socket = socketIOClient(SOCKET_SERVER_URL);
 
 class Piece extends React.Component{
 // componentDidMount(){
@@ -21,8 +21,8 @@ class Piece extends React.Component{
 
     render(){
         return(
-            <Draggable grid={[10,10]} position={this.props.puzzlePiece} onDrag={this.props.handleDrag} onStop={this.props.onStop} onStart={() => this.props.puzzlePiece.drag}>
-            <div className="puzzle-piece" id={this.props.id} 
+            <Draggable position={this.props.puzzlePiece} onDrag={this.props.handleDrag} onStop={this.props.onStop} onStart={() => this.props.puzzlePiece.drag}>
+            <div className={ this.props.puzzlePiece.drag ? "active-piece" : "placed-piece"} id={this.props.id} 
             style={{position: 'absolute', top: 0, left: 0, backgroundImage: "url(/images/puzzle1/"+ this.props.id +".jpg)" }}>
               <div>Piece {this.props.id}</div>
               <div>Pos: x: {this.props.puzzlePiece.x.toFixed(0)} y: {this.props.puzzlePiece.y.toFixed(0)}</div>

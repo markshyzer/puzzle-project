@@ -82,6 +82,7 @@ io.on("connection", (socket) => {
   
   socket.on("pushState", (data) => {
     socket.to(roomId).emit("callState",data);
+
     // //pass data from server side - > client side(to sync state)
     // //this has to be the newest state data.
   });

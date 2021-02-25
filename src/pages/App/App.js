@@ -28,7 +28,7 @@ class App extends Component {
 
   handleUpdateName = async () => {
     const user = await userService.index(this.state.user._id);
-    this.setState({ user });
+    this.setState({ user: user });
   }
 
   handleSignupOrLogin = () => {
@@ -69,9 +69,12 @@ class App extends Component {
               user={this.state.user}
             />
           }/>
-
-          <Route exact path="/room" component={Room} />
-          <Route exact path="/:roomId" component={GameRoom} />
+          <Route exact path='/images' render={() =>
+            <ImagesPage />
+          }/>
+          <Route exact path='/images/:id' render={props => 
+            <ImagePage {...props}/>}
+          />
           <Route exact path='/updatename/:id' render={({ history }) => 
             <UpdatePage
               history={history}
@@ -79,12 +82,9 @@ class App extends Component {
               user={this.state.user}
             />
           }/>
-          <Route exact path='/images' render={() =>
-            <ImagesPage />
-          }/>
-          <Route exact path='/images/:id' render={props => 
-            <ImagePage {...props}/>}
-          />
+          <Route exact path="/room" component={Room} />
+          <Route exact path="/:roomId" component={GameRoom} />
+
         </Switch>
       </div>
     );
