@@ -1,9 +1,9 @@
 
 import { useEffect, useRef, useState } from "react";
 import socketIOClient from "socket.io-client";
-
+require('dotenv').config();
 const NEW_CHAT_MESSAGE_EVENT = "newChatMessage"; // Name of the event
-const SOCKET_SERVER_URL = "http://localhost:4000";
+const SOCKET_SERVER_URL = process.env.REACT_APP_ENDPOINT;
 
 const useSocket = (roomId) => {
   const [messages, setMessages] = useState([]); // Sent and received messages

@@ -8,6 +8,7 @@ const app = express();
 require('dotenv').config();
 require('./config/database');
 
+
 app.use(logger('dev'));
 app.use(express.json());
 app.use(require('cors')())
@@ -45,11 +46,9 @@ let roomList = []
 io.on("connection", (socket) => {
 
   socket.on("roomList", () => {
-    console.log("roomList", roomList)
     roomList.filter((room)=>{
       return (room)
     })
-    console.log(roomList);
     socket.emit("roomListReceived",roomList)
   })
 
@@ -58,7 +57,6 @@ io.on("connection", (socket) => {
   socket.join(roomId);//creates a room if it doesnt exist or you join a previously created room
   if(!roomList.includes(roomId) && roomId !== undefined){
     roomList.push(roomId)
-    console.log("room added")
   }
   // Listen for new messages
   socket.on(NEW_CHAT_MESSAGE_EVENT, (data) => {
@@ -76,21 +74,17 @@ io.on("connection", (socket) => {
     if(playerCount){//error somewhere if playerCount is not valid, skip this
       check = (playerCount.size > 1);//true is when you dont need  to scatter
     }
-    console.log(check);
-    console.log("init",roomId);
     //puzzle already created.
     io.in(roomId).emit("init", check);
 });
 
   socket.on("newPlayer", (data)=>{
     //socket.broadcast.emit("newPlayerFound")
-    console.log("new player", roomId);
     socket.to(roomId).emit("newPlayerFound")
     //sends out signal except myself
   })
 
   socket.on("fullPuzzle", (data) => {
-    console.log("full puzzle", roomId);
     io.in(roomId).emit("fullPuzzleRecieve", data)
   })
   
@@ -107,7 +101,6 @@ io.on("connection", (socket) => {
     roomList = roomList.filter((room) =>{
       return room != roomId
     })
-    console.log("disconnecting")
   });
 });
 

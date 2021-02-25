@@ -4,13 +4,14 @@ import Draggable from 'react-draggable';
 import Piece from '../Piece/Piece'
 import socketIOClient from "socket.io-client";
 
+require('dotenv').config();
 
 var socket;
 class Puzzle extends React.Component {
     constructor() {
         super();
         this.state = {
-            endpoint: 'http://localhost:4000/',
+            endpoint: process.env.REACT_APP_ENDPOINT,
             activeDrags: 0,
             puzzlePiece: [
                 {x: 0, y: 0, drag: true, finalX: 350, finalY: 100}, 
@@ -48,6 +49,7 @@ class Puzzle extends React.Component {
     async componentDidMount(){
 
       //when mounted, push state to server.
+      console.log("ENV",this.state.endpoint);
       socket = socketIOClient(this.state.endpoint, {query: this.props.roomId});
       await socket.emit("init",{roomId:this.props.roomId});
       socket.once("init" , async (check) =>{

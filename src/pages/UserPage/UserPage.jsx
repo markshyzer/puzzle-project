@@ -4,6 +4,7 @@ import {TweenMax, TimelineLite, Power3, gsap} from 'gsap'
 import socketIOClient from "socket.io-client";
 import { Link } from 'react-router-dom';
 import './UserPage.scss'
+require('dotenv').config();
 
 export default function UserPage(props) {
 
@@ -12,7 +13,7 @@ export default function UserPage(props) {
     let content1 = useRef(null);
     let content2 = useRef(null);
     let tl = new TimelineLite();
-    let socket = socketIOClient("http://localhost:4000/");
+    let socket = socketIOClient(process.env.REACT_APP_ENDPOINT);
     useEffect( async () => {
       const link = content1.children[0]
       const h1 = content2.children[0]
