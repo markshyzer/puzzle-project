@@ -3,6 +3,7 @@ import {TweenMax, TimelineLite, Power3, gsap} from 'gsap'
 import './LandingPage.scss'
 import UserPage from '../UserPage/UserPage'
 
+
 function LandingPage(props) {
 
   let app = useRef(null);
@@ -46,7 +47,7 @@ function LandingPage(props) {
           </div>
         </div> 
         <div className='logo' ref={el => image = el}>
-          <img style={{marginTop: 50, width: 220}} src='https://image.flaticon.com/icons/png/512/205/205252.png' alt='logo' />
+          <a href="/public"><img style={{marginTop: 50, width: 220}} src='https://image.flaticon.com/icons/png/512/205/205252.png' alt='logo'/></a>
         </div>
     </div>;
 
