@@ -89,7 +89,7 @@ class Puzzle extends React.Component {
     //   socket.emit("disconnect");
     // }
     checkWin = () => {
-      let win = !(this.state.puzzlePiece.some(p => p.drag === "true"))
+      let win = (this.state.puzzlePiece.every(p => p.drag === false))
       if(win){
         alert("You won!");
       }
