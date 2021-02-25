@@ -1,5 +1,5 @@
 
-import React, { Component } from 'react';
+import React, { Component, useEffect, useRef, useState } from 'react';
 
 import "./GameRoom.css";
 import useSocket from "../../useSocket";
@@ -19,35 +19,49 @@ const GameRoom = (props) => {
     setNewMessage("");
   };
 
+  // Auto Scroll to chatbox bottom
+  const messageEl = useRef(null);
+  useEffect(() => {
+    if (messageEl) {
+      messageEl.current.addEventListener('DOMNodeInserted', event => {
+        const { currentTarget: target } = event;
+        target.scroll({ top: target.scrollHeight, behavior: 'smooth' });
+      });
+    }
+  }, [])
+
   return (
-    <div className="chat-room-container">
+    <div>
+      <h1 className="room-name">Room: {roomId}</h1>
       <Puzzle 
         roomId={props.match.params}
       />
-      <h1 className="room-name">Room: {roomId}</h1>
-      <div className="messages-container">
-        <ol className="messages-list">
-          {messages.map((message, i) => (
-            <li
-              key={i}
-              className={`message-item ${
-                message.ownedByCurrentUser ? "my-message" : "received-message"
-              }`}
-            >
-              {message.body}
-            </li>
-          ))}
-        </ol>
+      <div className="chat-room-container">
+        
+        <div className="messages-container"ref={messageEl}>
+          <ol className="messages-list" >
+            {messages.map((message, i) => (
+              <li
+                key={i}
+                className={`message-item ${
+                  message.ownedByCurrentUser ? "my-message" : "received-message"
+                }`}
+              >
+                {message.body}
+              </li>
+            ))}
+          </ol>
+        </div>
+        <textarea
+          value={newMessage}
+          onChange={handleNewMessageChange}
+          placeholder="Chat here..."
+          className="new-message-input-field"
+        />
+        <button onClick={handleSendMessage} className="send-message-button">
+          Send
+        </button>
       </div>
-      <textarea
-        value={newMessage}
-        onChange={handleNewMessageChange}
-        placeholder="Write message..."
-        className="new-message-input-field"
-      />
-      <button onClick={handleSendMessage} className="send-message-button">
-        Send
-      </button>
     </div>
   );
 };

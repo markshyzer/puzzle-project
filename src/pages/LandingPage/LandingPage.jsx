@@ -17,14 +17,14 @@ function LandingPage(props) {
       const h3 = content.children[1]
 
       TweenMax.to(app.current, 0, {css: {visibility: 'visible'}})
-      tl.from(image, 1.3, {y: 260, ease: Power3.easeOut},'Start')
-        .from(logoImage, 1.5, {scale: 1.2, ease: Power3.easeOut})
+      tl.from(image, 1.2, {y: 127, ease: Power3.easeOut},'Start')
+        .from(logoImage, 1.2, {scale: 1.1, ease: Power3.easeOut})
 
       tl.staggerFrom([h1.children, h3.children], 1, {
-        y: 40,
+        y: 44,
         ease: Power3.easeOut,
         delay: .15
-      }, .4, 'Start')
+      }, .15, 'Start')
     } 
   })
 
@@ -38,10 +38,10 @@ function LandingPage(props) {
     <div className='hero' ref={app}>
       
         <div ref={el => content = el}>
-          <div>
+          <div className="content-line">
             <h1>Welcome to P U Z Z L E S</h1>
           </div>
-          <div>
+          <div className="content-line">
             <h3>ReAL-TimE PuZZLes with friends</h3>
           </div>
         </div> 
