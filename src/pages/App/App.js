@@ -14,10 +14,6 @@ import userService from '../../utils/userService';
 import Room from "../Room/Room";
 import GameRoom from "../GameRoom/GameRoom";
 
-//draggable
-import tokenService from '../../utils/tokenService';
-
-
 class App extends Component {
   constructor() {
     super();
@@ -43,7 +39,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <header className='header-footer'><span>R e A L - T i m E &nbsp;&nbsp;&nbsp;  P u Z Z L e S</span></header>
+        <header className='header-footer'><span>R e A L - T i m E <img className="header-logo" style={{height: 50, width: 'auto'}} src="https://image.flaticon.com/icons/png/512/417/417752.png" alt="puzzle-logo" />  P u Z Z L e S</span></header>
         <NavBar 
           user={this.state.user}
           handleLogout={this.handleLogout}

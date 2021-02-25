@@ -1,7 +1,7 @@
 .home-container {
   position: fixed;
-  left: 10%;
-  right: 10%;
+  left: 30%;
+  right: 30%;
   top: 50%;
   transform: translate(0, -50%);
   display: flex;
@@ -19,13 +19,7 @@
 }
 
 .enter-room-button {
-  margin-top: 20px;
-  padding: 24px 12px;
-  font-size: 28px;
-  background: #31a24c;
+  margin-top: -5px;
+  padding: 0 12px;
   color: white;
-  font-weight: 600;
-  text-align: center;
-  text-decoration: none;
-  border-radius: 7px;
 }
