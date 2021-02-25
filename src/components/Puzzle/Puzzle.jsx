@@ -46,6 +46,7 @@ class Puzzle extends React.Component {
         };
       }
     async componentDidMount(){
+
       //when mounted, push state to server.
       socket = socketIOClient(this.state.endpoint, {query: this.props.roomId});
       await socket.emit("init",{roomId:this.props.roomId});
@@ -82,7 +83,15 @@ class Puzzle extends React.Component {
         })
       })
     }
-
+    // componentWillUnmount() {
+    //   socket.emit("disconnect");
+    // }
+    checkWin = () => {
+      let win = !(this.state.puzzlePiece.some(p => p.drag === "true"))
+      if(win){
+        alert("You won!");
+      }
+    }
     scatter = (pieces) => {
       pieces.forEach((p,pIndex) => {
         let randX = Math.floor(Math.random() * 1000); 
@@ -109,6 +118,7 @@ class Puzzle extends React.Component {
           newPuzzlePiece[p] = {...this.state.puzzlePiece[p], x: this.state.puzzlePiece[p].finalX, y: this.state.puzzlePiece[p].finalY, drag: false}
           this.setState({ puzzlePiece: newPuzzlePiece })
           socket.emit("pushState", {piece:newPuzzlePiece[p], index:p})
+          this.checkWin()
         }
       }
     }
@@ -136,6 +146,7 @@ class Puzzle extends React.Component {
         this.setState({
           puzzlePiece : newPuzzlePiece
     });
+    
   };
 
   render(){

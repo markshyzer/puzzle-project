@@ -41,11 +41,25 @@ const io = require("socket.io")(server, {
 
 const NEW_CHAT_MESSAGE_EVENT = "newChatMessage";
 const PORT = 4000;
+let roomList = []
 io.on("connection", (socket) => {
+
+  socket.on("roomList", () => {
+    console.log("roomList", roomList)
+    roomList.filter((room)=>{
+      return (room)
+    })
+    console.log(roomList);
+    socket.emit("roomListReceived",roomList)
+  })
 
   // Join a conversation
   const { roomId } = socket.handshake.query;
   socket.join(roomId);//creates a room if it doesnt exist or you join a previously created room
+  if(!roomList.includes(roomId) && roomId !== undefined){
+    roomList.push(roomId)
+    console.log("room added")
+  }
   // Listen for new messages
   socket.on(NEW_CHAT_MESSAGE_EVENT, (data) => {
     io.in(roomId).emit(NEW_CHAT_MESSAGE_EVENT, data);
@@ -86,20 +100,15 @@ io.on("connection", (socket) => {
     // //pass data from server side - > client side(to sync state)
     // //this has to be the newest state data.
   });
-  //Listen for Update(drag)
-//   socket.on("update", (data)=>{
-//     ///pass down puzzle pieces(moving)
-//     io.in(roomId).emit("update", data);
-// });
-
-//update every 0.1s no matter what(no event)
 
   // Leave the room if the user closes the socket
   socket.on("disconnect", () => {
     socket.leave(roomId);
+    roomList = roomList.filter((room) =>{
+      return room != roomId
+    })
+    console.log("disconnecting")
   });
-
-  //probably do draggable event here
 });
 
 server.listen(PORT, () => {

@@ -39,7 +39,9 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <header className='header-footer'><span>R e A L - T i m E <img className="header-logo" style={{height: 50, width: 'auto'}} src="https://image.flaticon.com/icons/png/512/417/417752.png" alt="puzzle-logo" />  P u Z Z L e S</span></header>
+
+        <a href="/" ><header className='header-footer'><span>R e A L - T i m E <img className="header-logo" style={{height: 50, width: 'auto'}} src="https://image.flaticon.com/icons/png/512/417/417752.png" alt="puzzle-logo" />  P u Z Z L e S</span></header></a>
+
         <NavBar 
           user={this.state.user}
           handleLogout={this.handleLogout}
