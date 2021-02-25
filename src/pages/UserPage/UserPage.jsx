@@ -17,7 +17,7 @@ export default function UserPage(props) {
       tl.from(content2, 1.5, {x: 360, ease: Power3.easeOut}, 'Start')
         .from(h1, 1.5, {scale: 1.2, ease: Power3.easeOut})
 
-    })
+    }, [])
 
     return (
         <div className="UserPage">
