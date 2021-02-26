@@ -28,29 +28,29 @@ app.get('/*', function(req, res) {
 // development to avoid collision with React's dev server
 const port = process.env.PORT || 3001;
 
-app.listen(port, function() {
-  console.log(`Express app running on port ${port}`)
+
+var server = require("http").createServer(app);
+
+// app.listen(port, function() {
+//   console.log(`Express app is running on port ${port}`)
+// });
+
+
+const io = require("socket.io")(server, {
+  cors: {
+    origin: "*",
+  },
 });
 
 
-// const server = require("http").createServer();
-const server = app.listen(port, function(){
-  console.log("socket listening on port ", port)
-})
-
-const io = require("socket.io")(server)
-
-// const io = require("socket.io")(server, {
-//   cors: {
-//     origin: "*",
-//   },
-// });
+// var server = require('http').createServer(app)
+// const io = require("socket.io")(server)
 
 const NEW_CHAT_MESSAGE_EVENT = "newChatMessage";
 // const PORT = 4000;
 let roomList = []
 io.on("connection", (socket) => {
-  console.log("socket connected", port)
+  console.log("CONNECTION!", port)
   socket.on("roomList", () => {
     roomList.filter((room)=>{
       return (room)
@@ -82,7 +82,7 @@ io.on("connection", (socket) => {
     }
     //puzzle already created.
     io.in(roomId).emit("init", check);
-});
+  });
 
   socket.on("newPlayer", (data)=>{
     //socket.broadcast.emit("newPlayerFound")
@@ -110,6 +110,10 @@ io.on("connection", (socket) => {
   });
 });
 
-// server.listen(PORT, () => {
-//   console.log(`Listening on port ${PORT}`);
+// server.listen(port, () => {
+//   console.log(`Socket listening on port ${port}`);
 // });
+
+server.listen(port, () => {
+  console.log(`Socket listening on port ${port}`);
+});
