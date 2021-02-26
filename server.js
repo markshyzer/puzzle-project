@@ -34,17 +34,17 @@ app.listen(port, function() {
 
 
 const server = require("http").createServer();
-const io = require("socket.io")(server, {
+const io = require("socket.io")(app, {
   cors: {
     origin: "*",
   },
 });
 
 const NEW_CHAT_MESSAGE_EVENT = "newChatMessage";
-const PORT = 4000;
+// const PORT = 4000;
 let roomList = []
 io.on("connection", (socket) => {
-
+  console.log("socket connected", port)
   socket.on("roomList", () => {
     roomList.filter((room)=>{
       return (room)
@@ -104,6 +104,6 @@ io.on("connection", (socket) => {
   });
 });
 
-server.listen(PORT, () => {
-  console.log(`Listening on port ${PORT}`);
-});
+// server.listen(PORT, () => {
+//   console.log(`Listening on port ${PORT}`);
+// });
