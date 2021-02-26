@@ -52,15 +52,15 @@ class Puzzle extends React.Component {
       console.log("ENV",this.state.endpoint);
       socket = socketIOClient(this.state.endpoint, {query: this.props.roomId});
       await socket.emit("init",{roomId:this.props.roomId});
-      socket.once("init" , async (check) =>{
+      // socket.once("init" , async (check) =>{
         //if(!check){
           //first player joining the room/ you scatter the pieces of puzzle
           this.scatter(this.state.puzzlePiece);
-          this.state.puzzlePiece.forEach( async (p,i) => {
+          // this.state.puzzlePiece.forEach( async (p,i) => {
             //map through the whole pieces to scatter them
-            await socket.emit("pushState", {piece:p, index:i})
+            // await socket.emit("pushState", {piece:p, index:i})
             //25 piece emit
-          })
+          // })
         //}
         //else{
           //we need to request to recieve state from other user( since this is new player)
@@ -70,7 +70,7 @@ class Puzzle extends React.Component {
             //3
         })
       //}
-    })
+    // })
       //2
       await socket.on("newPlayerFound", async (data) => {
         await socket.emit("fullPuzzle", {
@@ -157,7 +157,7 @@ class Puzzle extends React.Component {
         <div>
           <Draggable onStart={() => false}>
               <div className="board"
-              style={{position: 'absolute', top: board.y, left: board.x, border: "1px dotted black", width: board.size, height: board.size}}>Puzzle Board</div>
+              style={{position: 'absolute', top: board.y, left: board.x, border: "1px dotted black", width: board.size, height: board.size}}></div>
           </Draggable >
           {this.state.puzzlePiece.map((p, i) => 
           <Piece 
