@@ -33,8 +33,12 @@ app.listen(port, function() {
 });
 
 
-const server = require("http").createServer();
-const io = require("socket.io")(app, {
+// const server = require("http").createServer();
+const server = app.listen(port, function(){
+  console.log("socket listening on port ", port)
+})
+
+const io = require("socket.io")(server, {
   cors: {
     origin: "*",
   },
