@@ -2,7 +2,7 @@
 
 This is a real-time multi-user application that allows several players to work together to complete a jigsaw-style puzzle. A chat function is also available within each puzzle room, and users may sign in to create their own rooms, or can play in the public room without requiring an account.
 
-![]()
+![](https://raw.githubusercontent.com/markshyzer/puzzle-project/main/gameplay-screenshot.png)
 
 ## How to Play
 
