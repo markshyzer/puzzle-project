@@ -38,11 +38,13 @@ const server = app.listen(port, function(){
   console.log("socket listening on port ", port)
 })
 
-const io = require("socket.io")(server, {
-  cors: {
-    origin: "*",
-  },
-});
+const io = require("socket.io")(server)
+
+// const io = require("socket.io")(server, {
+//   cors: {
+//     origin: "*",
+//   },
+// });
 
 const NEW_CHAT_MESSAGE_EVENT = "newChatMessage";
 // const PORT = 4000;
