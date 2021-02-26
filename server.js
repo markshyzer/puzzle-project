@@ -35,16 +35,11 @@ var server = require("http").createServer(app);
 //   console.log(`Express app is running on port ${port}`)
 // });
 
-
 const io = require("socket.io")(server, {
   cors: {
     origin: "*",
   },
 });
-
-
-// var server = require('http').createServer(app)
-// const io = require("socket.io")(server)
 
 const NEW_CHAT_MESSAGE_EVENT = "newChatMessage";
 // const PORT = 4000;
