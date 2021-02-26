@@ -96,6 +96,11 @@ io.on("connection", (socket) => {
     // //this has to be the newest state data.
   });
 
+  socket.on("gameWon", ()=>{
+    message="Puzzle Finished!"
+    io.in(roomId).emit("Win",message)
+  })
+  
   // Leave the room if the user closes the socket
   socket.on("disconnect", () => {
     socket.leave(roomId);

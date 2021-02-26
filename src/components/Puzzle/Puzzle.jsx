@@ -84,6 +84,9 @@ class Puzzle extends React.Component {
           puzzlePiece: newPuzzlePiece
         })
       })
+      socket.on("Win", (message)=>{
+        alert(message)
+      })
     }
     // componentWillUnmount() {
     //   socket.emit("disconnect");
@@ -91,7 +94,7 @@ class Puzzle extends React.Component {
     checkWin = () => {
       let win = (this.state.puzzlePiece.every(p => p.drag === false))
       if(win){
-        alert("You won!");
+        socket.emit("gameWon");
       }
     }
     scatter = (pieces) => {
