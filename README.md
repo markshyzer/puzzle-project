@@ -8,7 +8,7 @@ This is a real-time multi-user application that allows several players to work t
 
 To begin, click the puzzle icon to enter the public puzzle room. Alternately, you can create an account or sign in to create a unique puzzle room. Share the puzzle room's URL to add other users. Signed-in users may also view a list of active rooms. To complete the puzzle, click to drag pieces onto the board outline. When a piece has been moved to the correct place on the board it will lock into place.
 
-[Click here to play](https://puzzle-project-four.herokuapp.com/roomasdf)
+[Click here to play](https://puzzle-project-four.herokuapp.com/)
 
 ## Upcoming Features
 - User-uploaded puzzle images
